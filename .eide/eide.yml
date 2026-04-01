@@ -7,29 +7,12 @@ srcDirs:
   - Core/Src
   - Drivers/STM32G4xx_HAL_Driver/Src
   - User/Application/Src
+  - Middleware/FreeRTOS
 virtualFolder:
   name: <virtual_root>
   files:
     - path: Core/Startup/startup_stm32g431cbux.s
-  folders:
-    - name: Middleware
-      files: []
-      folders:
-        - name: FreeRTOS
-          files:
-            - path: Middleware/FreeRTOS/croutine.c
-            - path: Middleware/FreeRTOS/event_groups.c
-            - path: Middleware/FreeRTOS/list.c
-            - path: Middleware/FreeRTOS/queue.c
-            - path: Middleware/FreeRTOS/stream_buffer.c
-            - path: Middleware/FreeRTOS/tasks.c
-            - path: Middleware/FreeRTOS/timers.c
-          folders:
-            - name: portable
-              files:
-                - path: Middleware/FreeRTOS/portable/GCC/ARM_CM4F/port.c
-                - path: Middleware/FreeRTOS/portable/MemMang/heap_4.c
-              folders: []
+  folders: []
 dependenceList: []
 outDir: build
 miscInfo:
@@ -52,6 +35,8 @@ targets:
         - Drivers/Bsp
       libList: []
     excludeList: []
+    settings:
+      debugger: cortex-debug
     toolchain: GCC
     toolchainConfigMap:
       GCC:
