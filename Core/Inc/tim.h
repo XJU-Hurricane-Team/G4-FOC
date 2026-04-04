@@ -37,10 +37,12 @@ extern "C" {
 /* USER CODE END Private defines */
 
 void MX_TIM1_Init(void);
+void MX_TIM2_Init(void);
 void MX_TIM3_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+void tim3_ch2_pwm_start_dma(uint32_t *data, uint32_t length);
+void tim3_ch2_pwm_stop_dma(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
