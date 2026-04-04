@@ -30,11 +30,19 @@
 #include <sys/time.h>
 #include <sys/times.h>
 
+#include <stm32g4xx_ll_usart.h>
 
-/* Variables */
-extern int __io_putchar(int ch) __attribute__((weak));
+#define PRINTF_USART USART1
+
+int __io_putchar(int ch)
+{
+  LL_USART_TransmitData8(PRINTF_USART, ch);
+  while (LL_USART_IsActiveFlag_TC(PRINTF_USART) == 0U)
+    ;
+  return ch;
+}
+
 extern int __io_getchar(void) __attribute__((weak));
-
 
 char *__env[1] = { 0 };
 char **environ = __env;

@@ -29,18 +29,19 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32g4xx_hal.h"
 
-#include "stm32g4xx_ll_tim.h"
-#include "stm32g4xx_ll_usart.h"
+#include "stm32g4xx_ll_adc.h"
+#include "stm32g4xx_ll_dma.h"
 #include "stm32g4xx_ll_rcc.h"
 #include "stm32g4xx_ll_bus.h"
-#include "stm32g4xx_ll_cortex.h"
+#include "stm32g4xx_ll_crs.h"
 #include "stm32g4xx_ll_system.h"
+#include "stm32g4xx_ll_exti.h"
+#include "stm32g4xx_ll_cortex.h"
 #include "stm32g4xx_ll_utils.h"
 #include "stm32g4xx_ll_pwr.h"
+#include "stm32g4xx_ll_tim.h"
+#include "stm32g4xx_ll_usart.h"
 #include "stm32g4xx_ll_gpio.h"
-#include "stm32g4xx_ll_dma.h"
-
-#include "stm32g4xx_ll_exti.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -70,30 +71,40 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define Current_Ic_Pin GPIO_PIN_0
+#define Current_Ic_Pin LL_GPIO_PIN_0
 #define Current_Ic_GPIO_Port GPIOA
-#define Current_Ib_Pin GPIO_PIN_1
+#define Current_Ib_Pin LL_GPIO_PIN_1
 #define Current_Ib_GPIO_Port GPIOA
-#define Current_Ia_Pin GPIO_PIN_2
+#define Current_Ia_Pin LL_GPIO_PIN_2
 #define Current_Ia_GPIO_Port GPIOA
-#define VBUS_Pin GPIO_PIN_3
+#define VBUS_Pin LL_GPIO_PIN_3
 #define VBUS_GPIO_Port GPIOA
-#define RGB_OUT_Pin GPIO_PIN_4
+#define RGB_OUT_Pin LL_GPIO_PIN_4
 #define RGB_OUT_GPIO_Port GPIOA
-#define Temp_Pin GPIO_PIN_2
+#define HALL1_A_Pin LL_GPIO_PIN_5
+#define HALL1_A_GPIO_Port GPIOA
+#define Temp_Pin LL_GPIO_PIN_2
 #define Temp_GPIO_Port GPIOB
-#define LIN3_Pin GPIO_PIN_13
+#define HALL3_Pin LL_GPIO_PIN_10
+#define HALL3_GPIO_Port GPIOB
+#define LIN3_Pin LL_GPIO_PIN_13
 #define LIN3_GPIO_Port GPIOB
-#define LIN2_Pin GPIO_PIN_14
+#define LIN2_Pin LL_GPIO_PIN_14
 #define LIN2_GPIO_Port GPIOB
-#define LIN1_Pin GPIO_PIN_15
+#define LIN1_Pin LL_GPIO_PIN_15
 #define LIN1_GPIO_Port GPIOB
-#define HIN3_Pin GPIO_PIN_8
+#define HIN3_Pin LL_GPIO_PIN_8
 #define HIN3_GPIO_Port GPIOA
-#define HIN2_Pin GPIO_PIN_9
+#define HIN2_Pin LL_GPIO_PIN_9
 #define HIN2_GPIO_Port GPIOA
-#define HIN1_Pin GPIO_PIN_10
+#define HIN1_Pin LL_GPIO_PIN_10
 #define HIN1_GPIO_Port GPIOA
+#define EncZ_Pin LL_GPIO_PIN_15
+#define EncZ_GPIO_Port GPIOA
+#define CAN_RES_Pin LL_GPIO_PIN_11
+#define CAN_RES_GPIO_Port GPIOC
+#define HALL2_B_Pin LL_GPIO_PIN_3
+#define HALL2_B_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
