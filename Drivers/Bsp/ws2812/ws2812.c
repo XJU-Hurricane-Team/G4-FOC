@@ -119,7 +119,7 @@ void ws2812_set_all(uint32_t color)
  */
 uint32_t rgb_to_color(uint8_t r, uint8_t g, uint8_t b)
 {
-    return (r << 16) | (g << 8) | b;
+    return (r << 8) | (g << 16) | b;
 }
 
 /**
