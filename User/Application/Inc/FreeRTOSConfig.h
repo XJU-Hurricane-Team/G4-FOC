@@ -118,7 +118,7 @@ extern uint32_t SystemCoreClock;
 #define configSUPPORT_DYNAMIC_ALLOCATION          1
 
 //  <o>Total heap memory size [byte] <0-65535>
-#define configTOTAL_HEAP_SIZE                     ((size_t)(24 * 1024) )
+#define configTOTAL_HEAP_SIZE                     ((size_t)(10 * 1024) )
 
 //  <q>User manually allocates FreeRTOS memory heap
 //  <i> Default: 0
