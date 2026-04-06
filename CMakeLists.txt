@@ -67,6 +67,8 @@ include_directories(
         Drivers/Bsp
         Drivers/CMSIS/Include
         Drivers/CMSIS/Device/ST/STM32G4xx/Include
+        Drivers/CMSIS/DSP/Include
+        Drivers/CMSIS/DSP/PrivateInclude
         Drivers/STM32G4xx_HAL_Driver/Inc
 
         Middleware/FreeRTOS/include
@@ -86,6 +88,7 @@ file(GLOB_RECURSE SOURCES
         "Core/Startup/startup_stm32g431cbux.s"
 
         "Drivers/Bsp/*.c"
+        "Drivers/CMSIS/DSP/Source/BasicMathFunctions/BasicMathFunctions.c"
         "Drivers/STM32G4xx_HAL_Driver/Src/*.c"
 
         "Middleware/FreeRTOS/*.c"

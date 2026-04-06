@@ -12,7 +12,11 @@ virtualFolder:
   name: <virtual_root>
   files:
     - path: Core/Startup/startup_stm32g431cbux.s
-  folders: []
+  folders:
+    - name: CMSIS-DSP
+      files:
+        - path: Drivers/CMSIS/DSP/Source/BasicMathFunctions/BasicMathFunctions.c
+      folders: []
 dependenceList: []
 outDir: build
 miscInfo:
@@ -33,8 +37,12 @@ targets:
         - Middleware/FreeRTOS/portable/GCC/ARM_CM4F
         - User/Application/Inc
         - Drivers/Bsp
+        - Drivers/CMSIS/DSP/PrivateInclude
+        - Drivers/CMSIS/DSP/Include
       libList: []
     excludeList: []
+    settings:
+      debugger: cortex-debug
     toolchain: GCC
     toolchainConfigMap:
       GCC:
