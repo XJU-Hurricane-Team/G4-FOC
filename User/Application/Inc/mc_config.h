@@ -7,21 +7,41 @@
 #define __MC_CONFIG_H
 
 /******************************************************************************
- * @defgroup TIMER configuration, refer to MOS datasheet.
+ * @defgroup TIMER configuration, refer to MOS and gate driver datasheet.
+ * @refer https://community.infineon.com/t5/Knowledge-Base-Articles/Dead-time-calculation-for-Insulated-Gate-Bipolar-Transistors-IGBT/ta-p/434308
+ *        https://community.infineon.com/t5/%E7%9F%A5%E8%AF%86%E5%BA%93%E6%96%87%E7%AB%A0/%E6%AD%BB%E5%8C%BA%E6%97%B6%E9%97%B4%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F/ta-p/826663
  * @{
  */
 
-#define MCPWM_CFG_TDON_DELAY_NS  6  /* MOS drain on delay time (ns) */
-#define MCPWM_CFG_TDOFF_DELAY_NS 20 /* MOS drain off delay time (ns) */
-#define MCPWM_CFG_TRISE_NS       9  /* MOS rise time (ns) */
-#define MCPWM_CFG_TFALL_NS       3  /* MOS fall time (ns) */
+#define MCPWM_CFG_DEADTIME_NS (650U)       /* deadtime (ns) */
+#define MCPWM_CFG_PWM_FREQ    (20 * 1000U) /* MOS PWM frequency (Hz) */
+#define MCPWM_CFG_TGRO_OFFSET (100U)       /* Offset of ADC sample trigger */
+#define MCPWM_CFG_RCR         (1U)         /* Repetition Counter */
 
-#define MCPWM_DEADTIME_PERIODS   ()
+/**
+ * @}
+ */
+
+/******************************************************************************
+ * @defgroup Temperature, voltage configuration.
+ * @note The actual over/under voltage will be multiplied by the number of cells.
+ * @{
+ */
+
+/* temperature threshold */
+#define MCPWM_CFG_TEMP_LIMIT 70.0f
+/* single battery cell over voltage threshold */
+#define MCPWM_CFG_BAT_CELL_OVER_LIMIT 4.2f
+/* single battery cell under voltage threshold */
+#define MCPWM_CFG_BAT_CELL_UNDER_LIMIT 3.3f
+
+/**
+ * @}
+ */
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
-
 
 #ifdef __cplusplus
 }

@@ -22,7 +22,7 @@
 #include "tim.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "mc_config.h"
 /* USER CODE END 0 */
 
 /* TIM1 init function */
@@ -93,9 +93,35 @@ void MX_TIM1_Init(void)
   TIM_BDTRInitStruct.AutomaticOutput = LL_TIM_AUTOMATICOUTPUT_DISABLE;
   LL_TIM_BDTR_Init(TIM1, &TIM_BDTRInitStruct);
   /* USER CODE BEGIN TIM1_Init 2 */
+  LL_RCC_ClocksTypeDef rcc_clocks;
+  uint32_t tim1_freq;
+  LL_RCC_GetSystemClocksFreq(&rcc_clocks);
+  uint32_t apb2_prescale = LL_RCC_GetAPB2Prescaler();
+  if (apb2_prescale == LL_RCC_APB2_DIV_1) {
+    tim1_freq = rcc_clocks.PCLK2_Frequency;
+  } else {
+    tim1_freq = rcc_clocks.PCLK2_Frequency * 2;
+  }
 
-  // LL_TIM_SetAutoReload(TIM1, );
-  // LL_TIM_OC_SetDeadTime(TIM1, );
+  uint32_t arr = tim1_freq / MCPWM_CFG_PWM_FREQ / 2;
+
+  /* To MHz */
+  tim1_freq /= (1000 * 1000);
+  uint32_t deadtime = MCPWM_CFG_DEADTIME_NS * tim1_freq / 1000;
+  if (deadtime <= 127) {
+      /* nothing to do */
+  } else if (deadtime <= 254) {
+    deadtime = 0x80 | (deadtime / 2 - 64);
+  } else if (deadtime <= 504) {
+    deadtime = 0xC0 | (deadtime / 8 - 32);
+  } else {
+    deadtime = 0xE0 | (deadtime / 16 - 32);
+  }
+
+  LL_TIM_SetRepetitionCounter(TIM1, MCPWM_CFG_RCR);
+  LL_TIM_SetAutoReload(TIM1, arr);
+  LL_TIM_OC_SetDeadTime(TIM1, deadtime);
+  LL_TIM_OC_SetCompareCH4(TIM1, arr - MCPWM_CFG_TGRO_OFFSET);
 
   /* USER CODE END TIM1_Init 2 */
   LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOB);
