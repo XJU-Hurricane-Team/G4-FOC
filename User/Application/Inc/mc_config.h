@@ -29,11 +29,26 @@
  */
 
 /* temperature threshold */
-#define MCPWM_CFG_TEMP_LIMIT 70.0f
+#define MC_CFG_TEMP_LIMIT 70.0f
 /* single battery cell over voltage threshold */
-#define MCPWM_CFG_BAT_CELL_OVER_LIMIT 4.2f
+#define MC_CFG_BAT_CELL_OVER_LIMIT 4.2f
 /* single battery cell under voltage threshold */
-#define MCPWM_CFG_BAT_CELL_UNDER_LIMIT 3.3f
+#define MC_CFG_BAT_CELL_UNDER_LIMIT 3.3f
+/* Maximum voltage limit */
+#define MC_CFG_MAX_VOLTAGE (28.0f)
+
+/**
+ * @}
+ */
+
+/******************************************************************************
+ * @defgroup Motor parameters.
+ * @{
+ */
+
+typedef struct {
+    float rds;
+} motor_param_t;
 
 /**
  * @}

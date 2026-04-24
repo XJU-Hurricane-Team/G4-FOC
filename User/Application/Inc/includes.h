@@ -8,3 +8,5 @@
 
 #include <FreeRTOS.h>
 #include <task.h>
+
+#include "foc_motor.h"
