@@ -38,7 +38,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 
 /**
  * @brief  Suspend Tick increment.
- * @note   Disable the tick increment by disabling TIM17 update interrupt.
+ * @note   Disable the tick increment by disabling HAL timer base update interrupt.
  */
 void HAL_SuspendTick(void)
 {
@@ -47,11 +47,11 @@ void HAL_SuspendTick(void)
 
 /**
  * @brief  Resume Tick increment.
- * @note   Enable the tick increment by Enabling TIM17 update interrupt.
+ * @note   Enable the tick increment by Enabling HAL timer base update interrupt.
  */
 void HAL_ResumeTick(void)
 {
-    /* Enable TIM17 Update interrupt */
+    /* Enable TIM Update interrupt */
     LL_TIM_EnableIT_UPDATE(HAL_BASE_TIME);
 }
 
