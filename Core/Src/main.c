@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
+#include "cordic.h"
 #include "dma.h"
 #include "fdcan.h"
 #include "tim.h"
@@ -99,6 +100,7 @@ int main(void)
   MX_TIM3_Init();
   MX_USART1_UART_Init();
   MX_TIM2_Init();
+  MX_CORDIC_Init();
   /* USER CODE BEGIN 2 */
   void freertos_start(void);
   freertos_start();
