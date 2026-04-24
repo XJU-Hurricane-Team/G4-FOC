@@ -82,12 +82,8 @@ void Error_Handler(void);
 #define VBUS_GPIO_Port GPIOA
 #define RGB_OUT_Pin LL_GPIO_PIN_4
 #define RGB_OUT_GPIO_Port GPIOA
-#define HALL1_Pin LL_GPIO_PIN_5
-#define HALL1_GPIO_Port GPIOA
 #define Temp_Pin LL_GPIO_PIN_2
 #define Temp_GPIO_Port GPIOB
-#define HALL3_Pin LL_GPIO_PIN_10
-#define HALL3_GPIO_Port GPIOB
 #define LIN3_Pin LL_GPIO_PIN_13
 #define LIN3_GPIO_Port GPIOB
 #define LIN2_Pin LL_GPIO_PIN_14
@@ -102,11 +98,18 @@ void Error_Handler(void);
 #define HIN1_GPIO_Port GPIOA
 #define CAN_RES_Pin LL_GPIO_PIN_11
 #define CAN_RES_GPIO_Port GPIOC
-#define HALL2_Pin LL_GPIO_PIN_3
-#define HALL2_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
+#define HALL1_A_Pin LL_GPIO_PIN_5
+#define HALL1_A_GPIO_Port GPIOA
+#define HALL2_B_Pin LL_GPIO_PIN_3
+#define HALL2_B_GPIO_Port GPIOB
+#define HALL3_Pin LL_GPIO_PIN_10
+#define HALL3_GPIO_Port GPIOB
+
+#define EncZ_Pin LL_GPIO_PIN_15
+#define EncZ_GPIO_Port GPIOA
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
