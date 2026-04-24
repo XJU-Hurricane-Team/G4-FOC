@@ -58,7 +58,6 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern TIM_HandleTypeDef htim17;
 
 /* USER CODE BEGIN EV */
 
@@ -166,10 +165,11 @@ void SysTick_Handler(void)
   {
     xPortSysTickHandler();
   }
+#if 0
   /* USER CODE END SysTick_IRQn 0 */
-
+  HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
-
+#endif
   /* USER CODE END SysTick_IRQn 1 */
 }
 
@@ -244,10 +244,6 @@ void TIM1_TRG_COM_TIM17_IRQHandler(void)
   /* USER CODE BEGIN TIM1_TRG_COM_TIM17_IRQn 0 */
 
   /* USER CODE END TIM1_TRG_COM_TIM17_IRQn 0 */
-  if (htim17.Instance != NULL)
-  {
-    HAL_TIM_IRQHandler(&htim17);
-  }
   /* USER CODE BEGIN TIM1_TRG_COM_TIM17_IRQn 1 */
 
   /* USER CODE END TIM1_TRG_COM_TIM17_IRQn 1 */
