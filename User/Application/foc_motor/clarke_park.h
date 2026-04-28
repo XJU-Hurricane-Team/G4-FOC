@@ -124,7 +124,7 @@ __STATIC_FORCEINLINE void park_transform(motor_iv_param_t *m)
  *   - θ must be consistent with the electrical angle used in the corresponding Park transform.
  *
  * @param m instance of motor parameter
- *  @args[in]  m->Vp        d-axis voltage (direct axis, excitation voltage)
+ *  @args[in]  m->Vd        d-axis voltage (direct axis, excitation voltage)
  *  @args[in]  m->Vq        q-axis voltage (quadrature axis, torque voltage)
  *  @args[in]  m->sin_val   Value of sin(θ)
  *  @args[in]  m->cos_val   Value of cos(θ)
@@ -133,8 +133,8 @@ __STATIC_FORCEINLINE void park_transform(motor_iv_param_t *m)
  */
 __STATIC_FORCEINLINE void park_inverse_transform(motor_iv_param_t *m)
 {
-    m->V_alpha = m->Vp * m->cos_val - m->Vq * m->sin_val;
-    m->V_beta = m->Vq * m->sin_val + m->Vq * m->cos_val;
+    m->V_alpha = m->Vd * m->cos_val - m->Vq * m->sin_val;
+    m->V_beta = m->Vd * m->sin_val + m->Vq * m->cos_val;
 }
 
 #ifdef __cplusplus

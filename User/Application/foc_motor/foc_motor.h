@@ -34,7 +34,7 @@ typedef struct {
     /** for SVPWM */
     float32_t V_alpha;
     float32_t V_beta;
-    float32_t Vp;
+    float32_t Vd;
     float32_t Vq;
     /** result of park */
     float32_t Iq;
