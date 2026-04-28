@@ -20,7 +20,10 @@ AlignConsecutiveBitFields: true
 # 连续声明时，对齐所有声明的变量名
 AlignConsecutiveDeclarations:	false
 # 连续宏时，进行对齐
-AlignConsecutiveMacros: true
+AlignConsecutiveMacros:
+    Enabled: true
+    AcrossEmptyLines: true  # 允许跨越空行对齐
+    AcrossComments: true    # 允许跨越注释对齐
 # 左对齐逃脱换行(使用反斜杠换行)的反斜杠
 AlignEscapedNewlines:	Left
 # 水平对齐二元和三元表达式的操作数

@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef __MC_CONFIG_H
 #define __MC_CONFIG_H
 
@@ -13,10 +14,11 @@
  * @{
  */
 
-#define MCPWM_CFG_DEADTIME_NS (650U)       /* deadtime (ns) */
-#define MCPWM_CFG_PWM_FREQ    (20 * 1000U) /* MOS PWM frequency (Hz) */
-#define MCPWM_CFG_TGRO_OFFSET (100U)       /* Offset of ADC sample trigger */
-#define MCPWM_CFG_RCR         (1U)         /* Repetition Counter */
+#define MCPWM_CFG_DEADTIME_NS       (650U)       /* deadtime (ns) */
+#define MCPWM_CFG_PWM_FREQ          (20 * 1000U) /* MOS PWM frequency (Hz) */
+#define MCPWM_MAX_DUTY              (95)         /* MOS PWM Maximum duty (%) */
+#define MCPWM_CFG_TGRO_OFFSET       (100U)       /* Offset of ADC sample trigger */
+#define MCPWM_CFG_RCR               (1U)         /* Repetition Counter */
 
 /**
  * @}
@@ -28,14 +30,16 @@
  * @{
  */
 
-/* temperature threshold */
-#define MC_CFG_TEMP_LIMIT 70.0f
-/* single battery cell over voltage threshold */
-#define MC_CFG_BAT_CELL_OVER_LIMIT 4.2f
-/* single battery cell under voltage threshold */
-#define MC_CFG_BAT_CELL_UNDER_LIMIT 3.3f
-/* Maximum voltage limit */
-#define MC_CFG_MAX_VOLTAGE (28.0f)
+/* temperature (℃) threshold */
+#define MC_CFG_TEMP_LIMIT           (70.0f)
+/* single battery cell over voltage threshold (V) */
+#define MC_CFG_BAT_CELL_OVER_LIMIT  (4.2f)
+/* single battery cell under voltage threshold (V) */
+#define MC_CFG_BAT_CELL_UNDER_LIMIT (3.3f)
+/* Maximum voltage limit (V) */
+#define MC_CFG_MAX_VOLTAGE          (30.0f)
+/* Maximum speed limit (rad/s) */
+#define MC_CFG_MAX_SPEED            (25.12f)
 
 /**
  * @}
