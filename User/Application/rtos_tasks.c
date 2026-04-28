@@ -5,7 +5,6 @@
  */
 
 #include <includes.h>
-#include <stdio.h>
 
 static TaskHandle_t start_task_handle;
 static void start_task(void *args);
@@ -49,7 +48,7 @@ static void start_task(void *args)
  *
  * @param args Parameters.
  */
-__attribute__((noreturn)) static void daemon_task(void *args)
+__NO_RETURN static void daemon_task(void *args)
 {
     UNUSED(args);
     for (;;) {
@@ -61,7 +60,7 @@ __attribute__((noreturn)) static void daemon_task(void *args)
  *
  * @param args Parameters.
  */
-__attribute__((noreturn)) static void cmd_task(void *args)
+__NO_RETURN static void cmd_task(void *args)
 {
     UNUSED(args);
     for (;;) {

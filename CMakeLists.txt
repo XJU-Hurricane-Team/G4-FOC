@@ -43,6 +43,8 @@ add_compile_options(
         -ffunction-sections
         -fdata-sections
         -funsigned-char
+        -fno-common
+        -ffast-math
         --specs=nano.specs
         --specs=nosys.specs
         -MMD
@@ -50,7 +52,8 @@ add_compile_options(
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     message(STATUS "Maximum optimization for speed")
-    add_compile_options(-Ofast)
+    add_compile_options(-Ofast -flto)
+    add_link_options(-flto)
 elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     message(STATUS "Debug mode")
     add_compile_options(-Og -g)
@@ -74,7 +77,7 @@ include_directories(
         Middleware/FreeRTOS/include
         Middleware/FreeRTOS/portable/GCC/ARM_CM4F
 
-        User/Application/Inc
+        User/Application
 )
 
 add_definitions(
@@ -89,10 +92,11 @@ file(GLOB_RECURSE SOURCES
 
         "Drivers/Bsp/*.c"
         "Drivers/CMSIS/DSP/Source/BasicMathFunctions/BasicMathFunctions.c"
+        "Drivers/CMSIS/DSP/Source/ControllerFunctions/ControllerFunctions.c"
         "Drivers/STM32G4xx_HAL_Driver/Src/*.c"
 
         "Middleware/FreeRTOS/*.c"
-        "User/Application/Src/*.c"
+        "User/Application/*.c"
 )
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32G431CBUX_FLASH.ld)
@@ -104,7 +108,6 @@ add_link_options(
         -mthumb
         -Wl,--gc-sections
         -Wl,--print-memory-usage
-        -u _printf_float
         --specs=nano.specs
         --specs=nosys.specs
         -Wl,-Map=${PROJECT_NAME}.map
