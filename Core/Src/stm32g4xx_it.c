@@ -224,19 +224,6 @@ void DMA1_Channel3_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles ADC1 and ADC2 global interrupt.
-  */
-void ADC1_2_IRQHandler(void)
-{
-  /* USER CODE BEGIN ADC1_2_IRQn 0 */
-
-  /* USER CODE END ADC1_2_IRQn 0 */
-  /* USER CODE BEGIN ADC1_2_IRQn 1 */
-
-  /* USER CODE END ADC1_2_IRQn 1 */
-}
-
-/**
   * @brief This function handles TIM1 trigger and commutation interrupts and TIM17 global interrupt.
   */
 void TIM1_TRG_COM_TIM17_IRQHandler(void)

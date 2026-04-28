@@ -46,6 +46,9 @@ void TIM2_Encoder_Init(void);
 
 void tim3_ch2_pwm_start_dma(uint32_t *data, uint32_t length);
 void tim3_ch2_pwm_stop_dma(void);
+
+void tim1_start_pwm(void);
+void tim1_stop_pwm(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

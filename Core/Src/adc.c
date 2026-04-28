@@ -16,6 +16,8 @@
   *
   ******************************************************************************
   */
+/* clang-format off */
+
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "adc.h"
@@ -145,7 +147,9 @@ void MX_ADC1_Init(void)
   LL_ADC_SetChannelSamplingTime(ADC1, LL_ADC_CHANNEL_4, LL_ADC_SAMPLINGTIME_6CYCLES_5);
   LL_ADC_SetChannelSingleDiff(ADC1, LL_ADC_CHANNEL_4, LL_ADC_SINGLE_ENDED);
   /* USER CODE BEGIN ADC1_Init 2 */
-
+  LL_ADC_StartCalibration(ADC1, LL_ADC_SINGLE_ENDED);
+  while (LL_ADC_IsCalibrationOnGoing(ADC1))
+    ;
   /* USER CODE END ADC1_Init 2 */
 
 }
@@ -227,12 +231,84 @@ void MX_ADC2_Init(void)
   LL_ADC_SetChannelSamplingTime(ADC2, LL_ADC_CHANNEL_12, LL_ADC_SAMPLINGTIME_2CYCLES_5);
   LL_ADC_SetChannelSingleDiff(ADC2, LL_ADC_CHANNEL_12, LL_ADC_SINGLE_ENDED);
   /* USER CODE BEGIN ADC2_Init 2 */
-
+  LL_ADC_StartCalibration(ADC2, LL_ADC_SINGLE_ENDED);
+  while (LL_ADC_IsCalibrationOnGoing(ADC2))
+    ;
   /* USER CODE END ADC2_Init 2 */
 
 }
 
 /* USER CODE BEGIN 1 */
+/* clang-format on */
+
+/**
+ * @brief Start ADC1 injected convert.
+ *
+ * @return 0 is success, 1 is busy.
+ */
+int adc1_injected_start_it(void)
+{
+    if (LL_ADC_INJ_IsConversionOngoing(ADC1)) {
+        return 1;
+    }
+
+    LL_ADC_ClearFlag_JEOC(ADC1);
+    LL_ADC_ClearFlag_JEOS(ADC1);
+    if (LL_ADC_INJ_GetQueueMode(ADC1)) {
+        LL_ADC_EnableIT_JQOVF(ADC1);
+    }
+
+    LL_ADC_EnableIT_JEOS(ADC1);
+    LL_ADC_DisableIT_JEOC(ADC1);
+
+    if (LL_ADC_INJ_GetTriggerSource(ADC1) == LL_ADC_INJ_TRIG_SOFTWARE) {
+        LL_ADC_INJ_StartConversion(ADC1);
+    }
+
+    return 0;
+}
+
+/**
+ * @brief Stop ADC1 injected convert.
+ *
+ */
+void adc1_injected_stop_it(void)
+{
+    LL_ADC_INJ_StopConversion(ADC1);
+
+    LL_ADC_DisableIT_JQOVF(ADC1);
+    LL_ADC_DisableIT_JEOS(ADC1);
+    LL_ADC_DisableIT_JEOC(ADC1);
+
+    LL_ADC_ClearFlag_JEOC(ADC1);
+    LL_ADC_ClearFlag_JEOS(ADC1);
+}
+
+static adc_cplt_callback_t adc_cplt_callback;
+
+/**
+ * @brief set adc convert complete callback function
+ *
+ * @param cb callback function
+ * @note This function will disable ADC conversion before change callback.
+ */
+void adc1_set_adc_cplt_cb(adc_cplt_callback_t cb)
+{
+    adc1_injected_stop_it();
+    adc_cplt_callback = cb;
+}
+
+/**
+ * @brief This function handles ADC1 and ADC2 global interrupt.
+ */
+void ADC1_2_IRQHandler(void)
+{
+    if (LL_ADC_IsActiveFlag_JEOS(ADC1)) {
+        LL_ADC_ClearFlag_JEOS(ADC1);
+        if (adc_cplt_callback) {
+            adc_cplt_callback(ADC1);
+        }
+    }
+}
 
 /* USER CODE END 1 */
-

@@ -455,5 +455,48 @@ void tim3_ch2_pwm_stop_dma(void)
     LL_TIM_OC_SetCompareCH2(TIM3, 0);
 }
 
-/* USER CODE END 1 */
+/**
+ * @brief Start TIM1 PWM with CH1/CH1N, CH2/CH2N, CH3/CH3N and CH4.
+ */
+void tim1_start_pwm(void)
+{
+    LL_TIM_CC_EnableChannel(TIM1, LL_TIM_CHANNEL_CH1 | LL_TIM_CHANNEL_CH1N);
+    LL_TIM_CC_EnableChannel(TIM1, LL_TIM_CHANNEL_CH2 | LL_TIM_CHANNEL_CH2N);
+    LL_TIM_CC_EnableChannel(TIM1, LL_TIM_CHANNEL_CH3 | LL_TIM_CHANNEL_CH3N);
+    LL_TIM_CC_EnableChannel(TIM1, LL_TIM_CHANNEL_CH4);
 
+    LL_TIM_EnableAllOutputs(TIM1);
+    LL_TIM_EnableCounter(TIM1);
+}
+
+/**
+ * @brief Stop TIM1 PWM with CH1/CH1N, CH2/CH2N, CH3/CH3N and CH4.
+ */
+void tim1_stop_pwm(void)
+{
+    LL_TIM_DisableAllOutputs(TIM1);
+
+    LL_TIM_CC_DisableChannel(TIM1, LL_TIM_CHANNEL_CH1 | LL_TIM_CHANNEL_CH1N);
+    LL_TIM_CC_DisableChannel(TIM1, LL_TIM_CHANNEL_CH2 | LL_TIM_CHANNEL_CH2N);
+    LL_TIM_CC_DisableChannel(TIM1, LL_TIM_CHANNEL_CH3 | LL_TIM_CHANNEL_CH3N);
+    LL_TIM_CC_DisableChannel(TIM1, LL_TIM_CHANNEL_CH4);
+
+    LL_TIM_DisableCounter(TIM1);
+}
+
+/**
+ * @brief set duty for every phases
+ *
+ * @param a duty of phase A
+ * @param b duty of phase B
+ * @param c duty of phase C
+ */
+void tim1_set_pwm_duty(float a, float b, float c)
+{
+    const float arr = (float)LL_TIM_GetAutoReload(TIM1);
+    LL_TIM_OC_SetCompareCH1(TIM1, (uint32_t)(a * arr));
+    LL_TIM_OC_SetCompareCH1(TIM1, (uint32_t)(b * arr));
+    LL_TIM_OC_SetCompareCH1(TIM1, (uint32_t)(c * arr));
+}
+
+/* USER CODE END 1 */

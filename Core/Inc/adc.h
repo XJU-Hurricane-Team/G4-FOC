@@ -41,6 +41,15 @@ void MX_ADC2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
+int adc1_injected_start_it(void);
+void adc1_injected_stop_it(void);
+
+/**
+ * @brief ADC convert complete callback.
+ */
+typedef void (*adc_cplt_callback_t)(ADC_TypeDef *ADCx);
+void adc1_set_adc_cplt_cb(adc_cplt_callback_t cb);
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
@@ -48,4 +57,3 @@ void MX_ADC2_Init(void);
 #endif
 
 #endif /* __ADC_H__ */
-
