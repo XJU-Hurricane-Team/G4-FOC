@@ -9,4 +9,5 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include "foc_motor.h"
+#include "foc_motor/foc_motor.h"
+

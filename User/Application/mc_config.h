@@ -25,6 +25,22 @@
  */
 
 /******************************************************************************
+ * @defgroup Hardware configuration
+ * @{
+ */
+
+/** Shunt sample resistor value (mΩ), should consider PCB resistor. */
+#define MCHW_SHUNT_RESISTOR         (20.0f)
+#define MCHW_OPAMP_GAIN             (50.0f) /** Operational amplifier gain */
+#define MCHW_VBUS_ADC_R_UP          (10.0f) /** Power in voltage ADC pull up resistor (kΩ) */
+#define MCHW_VBUS_ADC_R_DOWN        (1.0f)  /** Power in voltage ADC pull down resistor (kΩ) */
+#define MCHW_NTC_ADC_R_UP           (10.0f) /** NTC ADC pull up resistor (kΩ) */
+
+/**
+ * @}
+ */
+
+/******************************************************************************
  * @defgroup Temperature, voltage configuration.
  * @note The actual over/under voltage will be multiplied by the number of cells.
  * @{
@@ -46,17 +62,16 @@
  */
 
 /******************************************************************************
- * @defgroup Motor parameters.
+ * @defgroup calibration configuration.
  * @{
  */
 
-typedef struct {
-    float rds;
-} motor_param_t;
-
-/**
- * @}
- */
+/* Maximum current (A) when calibration. If the motor has difficulty rotating
+ * or stops halfway through rotation during calibration, increase this value. */
+#define MC_CFG_CALI_MAX_CURRENT     (0.5f)
+/* Maximum voltage (V) when calibration. If the motor does not make a "beep"
+ * sound during calibration, increase this value. */
+#define MC_CFG_CALI_MAX_VOLTAGE     (3.0f)
 
 #ifdef __cplusplus
 extern "C" {
