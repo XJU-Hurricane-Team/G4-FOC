@@ -56,7 +56,8 @@
 #define MC_CFG_MAX_VOLTAGE          (30.0f)
 /* Maximum speed limit (rad/s) */
 #define MC_CFG_MAX_SPEED            (25.12f)
-
+/* Debug data send period (ms). Set 0 to disable */
+#define MC_CFG_VOFA_SEND_PERIOD     (10)
 /**
  * @}
  */

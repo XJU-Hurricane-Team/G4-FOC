@@ -4,7 +4,13 @@
  * SPDX-License-Identifier: MIT-License
  */
 
-#include <includes.h>
+#include <bsp.h>
+
+#include <FreeRTOS.h>
+#include <task.h>
+
+#include "foc_motor/foc_motor.h"
+#include "vofa/vofa.h"
 
 static TaskHandle_t start_task_handle;
 static void start_task(void *args);
@@ -14,6 +20,8 @@ static void daemon_task(void *args);
 
 static TaskHandle_t cmd_task_handle;
 static void cmd_task(void *args);
+
+foc_motor_t foc_motor;
 
 /**
  * @brief FreeRTOS start up.
@@ -35,8 +43,9 @@ static void start_task(void *args)
     UNUSED(args);
 
     taskENTER_CRITICAL();
-    xTaskCreate(daemon_task, "daemon_task", 384, NULL, 3, &daemon_task_handle);
-    xTaskCreate(cmd_task, "cmd_task", 384, NULL, 2, &cmd_task_handle);
+    // xTaskCreate(daemon_task, "daemon_task", 384, NULL, 2, &daemon_task_handle);
+    // xTaskCreate(cmd_task, "cmd_task", 384, NULL, 3, &cmd_task_handle);
+    vofa_init(&foc_motor);
     taskEXIT_CRITICAL();
 
     vTaskDelete(start_task_handle);

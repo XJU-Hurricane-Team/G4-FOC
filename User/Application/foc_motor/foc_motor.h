@@ -10,6 +10,7 @@
 #include <bsp.h>
 #include <stdbool.h>
 #include <pid/pid.h>
+#include "mc_config.h"
 
 #include <FreeRTOS.h>
 #include <task.h>
