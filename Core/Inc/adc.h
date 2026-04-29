@@ -57,3 +57,4 @@ void adc1_set_adc_cplt_cb(adc_cplt_callback_t cb);
 #endif
 
 #endif /* __ADC_H__ */
+

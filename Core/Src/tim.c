@@ -500,3 +500,4 @@ void tim1_set_pwm_duty(float a, float b, float c)
 }
 
 /* USER CODE END 1 */
+

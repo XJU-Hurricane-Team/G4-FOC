@@ -270,7 +270,6 @@ int adc1_injected_start_it(void)
 
 /**
  * @brief Stop ADC1 injected convert.
- *
  */
 void adc1_injected_stop_it(void)
 {
@@ -312,3 +311,4 @@ void ADC1_2_IRQHandler(void)
 }
 
 /* USER CODE END 1 */
+
