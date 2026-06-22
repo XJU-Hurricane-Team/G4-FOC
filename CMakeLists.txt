@@ -65,19 +65,17 @@ endif ()
 add_compile_options(-Wall)
 
 include_directories(
-        Core/Inc
+        STM32CubeMX/Core/Inc
 
-        Drivers/Bsp
-        Drivers/CMSIS/Include
-        Drivers/CMSIS/Device/ST/STM32G4xx/Include
-        Drivers/CMSIS/DSP/Include
-        Drivers/CMSIS/DSP/PrivateInclude
-        Drivers/STM32G4xx_HAL_Driver/Inc
+        STM32CubeMX/Drivers/CMSIS/Include
+        STM32CubeMX/Drivers/CMSIS/Device/ST/STM32G4xx/Include
+        STM32CubeMX/Drivers/STM32G4xx_HAL_Driver/Inc
 
-        Middleware/FreeRTOS/include
-        Middleware/FreeRTOS/portable/GCC/ARM_CM4F
+        CMSIS-DSP/Include
+        CMSIS-DSP/PrivateInclude
 
-        User/Application
+        Bsp
+        App
 )
 
 add_definitions(
@@ -87,17 +85,29 @@ add_definitions(
 )
 
 file(GLOB_RECURSE SOURCES
-        "Core/Src/*.c"
-        "Core/Startup/startup_stm32g431cbux.s"
+        "STM32CubeMX/Core/Src/*.c"
+        "STM32CubeMX/Core/Startup/startup_stm32g431cbux.s"
 
-        "Drivers/Bsp/*.c"
-        "Drivers/CMSIS/DSP/Source/BasicMathFunctions/BasicMathFunctions.c"
-        "Drivers/CMSIS/DSP/Source/ControllerFunctions/ControllerFunctions.c"
-        "Drivers/STM32G4xx_HAL_Driver/Src/*.c"
+        "STM32CubeMX/Drivers/STM32G4xx_HAL_Driver/Src/*.c"
 
-        "Middleware/FreeRTOS/*.c"
-        "User/Application/*.c"
+        "CMSIS-DSP/Source/BasicMathFunctions/BasicMathFunctions.c"
+        "CMSIS-DSP/Source/ControllerFunctions/ControllerFunctions.c"
+
+        "Bsp/*.c"
+        "App/*.c"
 )
+
+## FreeRTOS Configuration #####################################################
+add_library(freertos_config INTERFACE)
+target_include_directories(freertos_config
+        INTERFACE
+        "App"
+)
+set(FREERTOS_KERNEL_PATH "FreeRTOS")
+set(FREERTOS_HEAP "4" CACHE STRING "" FORCE)
+set(FREERTOS_PORT "GCC_ARM_CM4F" CACHE STRING "" FORCE)
+add_subdirectory(${FREERTOS_KERNEL_PATH} FreeRTOS-Kernel)
+## End of FreeRTOS ############################################################
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32G431CBUX_FLASH.ld)
 
@@ -117,7 +127,9 @@ add_link_options(-T ${LINKER_SCRIPT})
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
 
-target_link_libraries(${PROJECT_NAME}.elf)
+target_link_libraries(${PROJECT_NAME}.elf PRIVATE
+        freertos_kernel
+)
 
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)

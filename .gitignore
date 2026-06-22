@@ -46,7 +46,8 @@ obj/
 .mxproject
 .osx.project
 .project
-/MDK-ARM
+.cproject
+MDK-ARM
 
 # Disable CubeMX generated backup files
 *.bak
