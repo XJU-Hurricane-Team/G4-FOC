@@ -43,8 +43,6 @@ static void start_task(void *args)
     UNUSED(args);
 
     taskENTER_CRITICAL();
-    // xTaskCreate(daemon_task, "daemon_task", 384, NULL, 2, &daemon_task_handle);
-    // xTaskCreate(cmd_task, "cmd_task", 384, NULL, 3, &cmd_task_handle);
     vofa_init(&foc_motor);
     taskEXIT_CRITICAL();
 

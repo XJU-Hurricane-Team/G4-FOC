@@ -93,10 +93,6 @@ typedef enum {
     M_STATE_L_START, /** measure inductance start */
     M_STATE_L_LOOP,  /** measuring inductance */
     M_STATE_L_END,   /** measure inductance done */
-    /* polarity detect */
-    M_STATE_PP_START, /** measure polarity start */
-    M_STATE_PP_LOOP,  /** measuring polarity */
-    M_STATE_PP_END,   /** measure polarity done */
 
     M_STATE_ERROR, /** measure error */
 } motor_measure_state_t;
@@ -105,10 +101,9 @@ typedef enum {
  * @brief motor measure parameter
  */
 typedef struct {
-    float32_t r;       /** phase resistance */
-    float32_t l;       /** phase inductance */
-    uint8_t pola_num;  /** polarity number */
-    bool measure_flag; /** flag of measure, set to 1 if measure done. */
+    float32_t r;      /** phase resistance */
+    float32_t l;      /** phase inductance */
+    uint8_t pola_num; /** polarity number */
 } motor_measure_param_t;
 
 /**
@@ -121,18 +116,16 @@ typedef struct {
 
     /* measure status */
     motor_state_e measure_state;         /** motor physical measure status */
-    motor_measure_param_t measure_param; /** motor physical parameters */
+    motor_measure_param_t measure_param; /** motor electronic parameters */
 
     /* control loop */
-    pid_f32_t cur_pid; /** current pid */
+    pid_f32_t Iq_pid;  /** Iq pid */
+    pid_f32_t Id_pid;  /** Id pid */
     pid_f32_t vel_pid; /** velocity pid */
 
     motor_iv_param_t iv; /** motor current and voltage */
     float32_t temp;      /** temperature */
 } foc_motor_t;
-
-extern TaskHandle_t foc_vel_loop_task_handle;
-extern TaskHandle_t foc_measure_task_handle;
 
 #ifdef __cplusplus
 extern "C" {

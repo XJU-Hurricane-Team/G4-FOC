@@ -7,8 +7,6 @@
 #ifndef __CLARKE_PARK_H
 #define __CLARKE_PARK_H
 
-#include <arm_math.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -40,8 +38,7 @@ extern "C" {
  */
 __STATIC_FORCEINLINE void clarke_transform(motor_iv_param_t *m)
 {
-    m->I_alpha = m->Ia;
-    m->I_beta = (m->Ib - m->Ic) * 0.57735026919f; /* 1/√3 = 0.57735026919 */
+    arm_clarke_f32(m->Ia, m->Ib, &m->I_alpha, &m->I_beta);
 }
 
 /**
@@ -53,7 +50,7 @@ __STATIC_FORCEINLINE void clarke_transform(motor_iv_param_t *m)
  * Transformation formula:
  *   Va = Vα
  *   Vb = -0.5*Vα + (√3/2)*Vβ
- *   Vc = -0.5*Vα - (√3/2)*Vβ
+ *   Vc = -(Va + Vb)
  *
  * Description:
  *   - This is the inverse of the Clarke transform.
@@ -70,9 +67,8 @@ __STATIC_FORCEINLINE void clarke_transform(motor_iv_param_t *m)
  */
 __STATIC_FORCEINLINE void clarke_inverse_transform(motor_iv_param_t *m)
 {
-    m->Va = m->V_alpha;
-    m->Vb = -0.5f * m->V_alpha + 0.86602540378f * m->V_beta; /* √3/2 = 0.86602540378 */
-    m->Vc = -0.5f * m->V_alpha - 0.86602540378f * m->V_beta;
+    arm_inv_clarke_f32(m->V_alpha, m->V_beta, &m->Va, &m->Vb);
+    m->Vc = -(m->Va + m->Vb);
 }
 
 /**
@@ -102,8 +98,7 @@ __STATIC_FORCEINLINE void clarke_inverse_transform(motor_iv_param_t *m)
  */
 __STATIC_FORCEINLINE void park_transform(motor_iv_param_t *m)
 {
-    m->Id = m->I_alpha * m->cos_val + m->I_beta * m->sin_val;
-    m->Iq = m->I_beta * m->cos_val - m->I_alpha * m->sin_val;
+    arm_park_f32(m->I_alpha, m->I_beta, &m->Id, &m->Iq, m->sin_val, m->cos_val);
 }
 
 /**
@@ -133,8 +128,7 @@ __STATIC_FORCEINLINE void park_transform(motor_iv_param_t *m)
  */
 __STATIC_FORCEINLINE void park_inverse_transform(motor_iv_param_t *m)
 {
-    m->V_alpha = m->Vd * m->cos_val - m->Vq * m->sin_val;
-    m->V_beta = m->Vd * m->sin_val + m->Vq * m->cos_val;
+    arm_inv_park_f32(m->Vd, m->Vq, &m->V_alpha, &m->V_beta, m->sin_val, m->cos_val);
 }
 
 #ifdef __cplusplus
