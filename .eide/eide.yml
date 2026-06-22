@@ -77,7 +77,7 @@ targets:
             output-format: elf
             remove-unused-input-sections: true
             use-float-printf: true
-        scatterFilePath: STM32G431CBUX_FLASH.ld
+        scatterFilePath: STM32CubeMX/STM32G431CBUX_FLASH.ld
         storageLayout:
           RAM: []
           ROM: []

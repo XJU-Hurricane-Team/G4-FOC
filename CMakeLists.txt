@@ -109,7 +109,7 @@ set(FREERTOS_PORT "GCC_ARM_CM4F" CACHE STRING "" FORCE)
 add_subdirectory(${FREERTOS_KERNEL_PATH} FreeRTOS-Kernel)
 ## End of FreeRTOS ############################################################
 
-set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32G431CBUX_FLASH.ld)
+set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32CubeMX/STM32G431CBUX_FLASH.ld)
 
 add_link_options(
         -mcpu=cortex-m4
